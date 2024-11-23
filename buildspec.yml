@@ -1,0 +1,32 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 7.7.1 # Specify the Node.js version. Adjust as needed.
+    commands:
+      - echo "Installing dependencies..."
+      - npm install
+
+  build:
+    commands:
+      # - echo "Running tests..."
+      # - npm run test -- --fail-on-error # Ensure tests must pass for the build to succeed
+      - echo "Building the project..."
+      - npm run build
+
+  post_build:
+    commands:
+      - echo "Build complete."
+      - echo "Contents of build folder:"
+      - ls -al build
+      - echo "Deploying to S3..."
+      - aws s3 cp build/ s3://static-web-bucket-devops/ --recursive
+
+artifacts:
+  files:
+    - build/**/* # Store the build files as artifacts
+
+cache:
+  paths:
+    - node_modules/**/* # Cache dependencies to speed up future builds
