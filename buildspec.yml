@@ -20,8 +20,8 @@ phases:
       - echo "Build complete."
       - echo "Contents of build folder:"
       - ls -al build
-      - echo "Deploying to S3..."
-      - aws s3 cp build/ s3://static-web-bucket-devops/ --recursive
+      # - echo "Deploying to S3..."
+      # - aws s3 cp build/ s3://static-web-bucket-devops/ --recursive
 
 artifacts:
   files:
